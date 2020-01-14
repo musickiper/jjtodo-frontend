@@ -5,6 +5,7 @@ import styled from "styled-components";
 import {gql} from "apollo-boost";
 import {useQuery} from "react-apollo-hooks";
 import AppRouter from "./Router";
+import SideBar from "./SideBar";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -28,6 +29,7 @@ function App() {
     return (
         <Wrapper>
             <AppRouter isLoggedIn={isLoggedIn}/>
+            {isLoggedIn && <SideBar/>}
             <ToastContainer position={toast.POSITION.BOTTOM_LEFT}/>
         </Wrapper>
     );
