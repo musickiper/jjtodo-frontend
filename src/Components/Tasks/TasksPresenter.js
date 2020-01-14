@@ -112,11 +112,14 @@ const Button = styled.div`
 
 const TasksPresenter = ({ newTask, tasks, onSubmit, onDelete, onClick }) => {
   // Check due date is close or not
-  const IsDueClose = dueDate => {
+  const IsDueClose = ({ dueDate }) => {
+    if (!dueDate) {
+      return false;
+    }
     const THREE_DAYS_TO_MSECS = 259200000;
-    const parsedDueDate = Date.parse(dueDate);
+    dueDate = new Date(dueDate);
     const curDate = Date.now();
-    return parsedDueDate - curDate < THREE_DAYS_TO_MSECS;
+    return dueDate.getTime() - curDate < THREE_DAYS_TO_MSECS;
   };
 
   return (
@@ -134,7 +137,7 @@ const TasksPresenter = ({ newTask, tasks, onSubmit, onDelete, onClick }) => {
           <Task key={task.id} done={task.status === "COMPLETE"}>
             <Title onClick={() => onClick(task.id)}>{task.title}</Title>
             <Status>{task.status || "PROGRESS"}</Status>
-            <Label dueClose={IsDueClose(task.dueData)}>
+            <Label dueClose={IsDueClose(task)}>
               <AccessTimeIcon />
             </Label>
             <Button onClick={() => onDelete(task.id)}>
