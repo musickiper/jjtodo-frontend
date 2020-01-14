@@ -1,7 +1,10 @@
 import React from 'react';
+import TasksPresenter from "./TasksPresenter";
 
 const TasksContainer = () => {
-    return "Tasks";
+    return (
+        <TasksPresenter/>
+    );
 };
 
 export default TasksContainer;

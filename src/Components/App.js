@@ -6,7 +6,14 @@ import {gql} from "apollo-boost";
 import {useQuery} from "react-apollo-hooks";
 import AppRouter from "./Router";
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #F1F3F5;
+`;
 
 const QUERY = gql`
     {
@@ -21,6 +28,7 @@ function App() {
     return (
         <Wrapper>
             <AppRouter isLoggedIn={isLoggedIn}/>
+            <ToastContainer position={toast.POSITION.BOTTOM_LEFT}/>
         </Wrapper>
     );
 }
