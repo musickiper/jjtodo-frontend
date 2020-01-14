@@ -6,17 +6,19 @@ import {
     CONFIRM_SECRET,
     CREATE_USER,
     LOCAL_LOG_IN,
-    LOG_IN
+    REQUEST_SECRET
 } from "./AuthQueries";
 import {toast} from "react-toastify";
 
 export default ({history}) => {
+    // States
     const [action, setAction] = useState("logIn");
-    const [isLoading, setIsLoading] = useState(false);
     const email = useInput("");
     const username = useInput("");
     const secret = useInput("");
-    const requestSecretMutation = useMutation(LOG_IN, {
+
+    // GraphQL Queries
+    const requestSecretMutation = useMutation(REQUEST_SECRET, {
         variables: {email: email.value}
     })[0];
 
@@ -36,16 +38,15 @@ export default ({history}) => {
 
     const localLogInMutation = useMutation(LOCAL_LOG_IN)[0];
 
+    // Callback Functions
     const onSubmit = async e => {
         e.preventDefault();
         if (action === "logIn") {
             if (email.value !== "") {
                 try {
-                    setIsLoading(true);
                     const {
                         data: {requestSecret}
                     } = await requestSecretMutation();
-                    setIsLoading(false);
                     if (!requestSecret) {
                         toast.error("You don't have an account yet, create one");
                         setTimeout(() => setAction("signUp"), 3000);
@@ -107,7 +108,6 @@ export default ({history}) => {
             username={username}
             secret={secret}
             onSubmit={onSubmit}
-            isLoading={isLoading}
         />
     );
 };

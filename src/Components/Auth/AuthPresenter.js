@@ -2,32 +2,25 @@ import React from "react";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
-  min-height: 80vh;
+  width: 50vh;
+  height: 50vh;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  cursor: ${props => (props.isLoading ? "progress" : "default")};
 `;
 
 const Box = styled.div`
+  width: 50vh;
   border-radius: 4px;
   border: 1px solid #CED4DA;
   background-color: white;
   text-align: center;
-  padding: 20px 0px;
-  width: 100%;
-  max-width: 600px;
-`;
-
-const Link = styled.span`
-  color: #3897F0;
-  cursor: pointer;
+  padding: 40px;
 `;
 
 const Form = styled(Box)`
-  padding: 40px;
-  padding-bottom: 30px;
+  padding: 40px 40px 30px;
   margin-bottom: 15px;
   form {
     width: 100%;
@@ -40,13 +33,18 @@ const Form = styled(Box)`
   }
 `;
 
+const Link = styled.span`
+  color: #3897F0;
+  cursor: pointer;
+`;
+
 const Input = styled.input`
+  height: 8vh;
   background-color: #F1F3F5;
   border: 1px solid #CED4DA;
   border-radius: 4px;
-  height: 60px;
   font-size: 20px;
-  padding-left: 15px;
+  padding-left: 1vh;
   ::placeholder {
     color: #757575;
   }
@@ -60,7 +58,7 @@ const Button = styled.button`
   font-weight: 600;
   background-color: #3897F0;
   text-align: center;
-  padding: 5px 0px;
+  margin: 5px;
   font-size: 20px;
   height: 60px;
 `;
@@ -72,9 +70,8 @@ export default ({
                     username,
                     secret,
                     onSubmit,
-                    isLoading
                 }) => (
-    <Wrapper isLoading={isLoading}>
+    <Wrapper>
         <Form>
             {action === "logIn" && (
                 <form onSubmit={onSubmit}>
