@@ -34,6 +34,46 @@ const Input = styled.input`
   }
 `;
 
+const Tools = styled.div`
+  width: 60vh;
+  height: 5vh;
+  margin-top: 2vh;
+  display: flex;
+  
+`;
+
+const SearchBox = styled.div`
+  width: 30vh;
+  height: 5vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Search = styled.input`
+  width:80%;
+  height: 100%;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  padding-left: 1vh;
+`;
+
+const Filters = styled.div`
+  width: 30vh;
+  height: 5vh;
+  display: flex;
+`;
+
+const Filter = styled.div`
+  width: 15vh;
+  height: 5vh;
+  margin-right: 1vh;
+  select {
+    width: 100%;
+    height: 100%;
+  }
+`;
+
 const Tasks = styled.div`
   width: 60vh;
   height: 80vh;
@@ -97,7 +137,7 @@ const Label = styled.div`
             50% { opacity: 0 }
         }
     `
-    )};
+)};
   }
 `;
 
@@ -119,7 +159,9 @@ const Button = styled.div`
   }
 `;
 
-const TasksPresenter = ({newTask, tasks, onSubmit, onDelete, onClick}) => {
+const STATUS_OPTIONS = ["PROGRESS", "PENDING", "COMPLETE"];
+
+const TasksPresenter = ({term, setTerm, setStatus, newTask, tasks, setCategory, categories, onSubmit, onDelete, onClick}) => {
     // Check due date is close or not
     const IsDueClose = ({dueDate}) => {
         if (!dueDate) {
@@ -141,6 +183,33 @@ const TasksPresenter = ({newTask, tasks, onSubmit, onDelete, onClick}) => {
                     onKeyDown={onSubmit}
                 />
             </InputBox>
+            <Tools>
+                <SearchBox>
+                    <Search placeholder={"Search"} value={term} onChange={e => setTerm(e.target.value)}/>
+                </SearchBox>
+                <Filters>
+                    <Filter>
+                        <select defaultValue={"** Status **"} onChange={e => setStatus(e.target.value)}>
+                            <option disabled>** Status **</option>
+                            {STATUS_OPTIONS.map(option => (
+                                <option key={option} value={option}>
+                                    {option}
+                                </option>
+                            ))}
+                        </select>
+                    </Filter>
+                    <Filter>
+                        <select defaultValue={"** Category **"} onChange={e => setCategory(e.target.value)}>
+                            <option disabled>** Category **</option>
+                            {categories.map(({text}) => (
+                                <option key={text} value={text}>
+                                    {text}
+                                </option>
+                            ))}
+                        </select>
+                    </Filter>
+                </Filters>
+            </Tools>
             <Tasks>
                 {tasks.map(task => (
                     <Task key={task.id} done={task.status === "COMPLETE"}>
