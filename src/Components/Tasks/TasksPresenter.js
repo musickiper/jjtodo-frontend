@@ -190,7 +190,7 @@ const TasksPresenter = ({term, setTerm, setStatus, newTask, tasks, setCategory, 
                 <Filters>
                     <Filter>
                         <select defaultValue={"** Status **"} onChange={e => setStatus(e.target.value)}>
-                            <option disabled>** Status **</option>
+                            <option value={""}>** Status **</option>
                             {STATUS_OPTIONS.map(option => (
                                 <option key={option} value={option}>
                                     {option}
@@ -200,7 +200,7 @@ const TasksPresenter = ({term, setTerm, setStatus, newTask, tasks, setCategory, 
                     </Filter>
                     <Filter>
                         <select defaultValue={"** Category **"} onChange={e => setCategory(e.target.value)}>
-                            <option disabled>** Category **</option>
+                            <option value={""}>** Category **</option>
                             {categories.map(({text}) => (
                                 <option key={text} value={text}>
                                     {text}
